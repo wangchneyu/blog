@@ -37,10 +37,26 @@ draft: true                  # 可选，生产环境完全隐藏，开发环境�
 
 ## 部署
 
+### 方式一：Vercel（推荐）
+
 1. 推送到 GitHub，Vercel 导入仓库
 2. 在 Vercel 上创建/绑定 Upstash Redis（KV），自动注入环境变量
 3. 配置 `NEXT_PUBLIC_SITE_URL` 为最终域名
 4. giscus 配置方法：公开仓库开启 Discussions → 安装 [giscus app](https://giscus.app) → 按 giscus.app 生成的值填入 `Comments.tsx`
+
+### 方式二：自托管服务器（VPS）
+
+服务器要求：Node.js ≥ 20.9（见 `package.json` 的 `engines`）。
+
+```bash
+npm ci
+npm run build
+npm start   # 默认监听 3000 端口
+```
+
+- 建议用 `pm2` 或 systemd 守护进程，Nginx/Caddy 反向代理 80/443 → 3000
+- 环境变量通过 `.env.local`（参考 `.env.example`）或进程环境注入
+- 浏览量统计走 Upstash Redis 的 HTTP API，服务器本身无需安装数据库
 
 ## 目录结构
 
