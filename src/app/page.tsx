@@ -26,10 +26,6 @@ export default function Home() {
             我的主线是科研——专注于多视图聚类等数据挖掘方向，同时以全栈开发与 AI Agent
             智能体把想法做成真实产品，并热爱数学建模与开源贡献。
           </p>
-          <p className={styles.heroNow}>
-            <span className={styles.nowDot} aria-hidden="true" />
-            现在：ICLR 2027 在投 · 写这个博客 · 备战数学建模省赛
-          </p>
           <div className={styles.heroCta}>
             <Link href="/about" className={styles.primaryBtn}>
               了解我的完整经历 →
