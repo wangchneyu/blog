@@ -175,46 +175,31 @@
   margin-top: 3.5rem;
 }
 
-/* 方向三行 */
-.focusList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* 领域大字排版 */
+.focusGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.focusBlock {
   display: flex;
   flex-direction: column;
+  gap: 0.4rem;
 }
 
-.focusItem {
-  display: flex;
-  align-items: baseline;
-  gap: 0.85rem;
-  padding: 0.9rem 0.25rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.focusItem:first-child {
-  padding-top: 0.25rem;
-}
-
-.focusItem:last-child {
-  border-bottom: none;
-}
-
-.focusIcon {
-  font-size: 1.1rem;
-  flex-shrink: 0;
-}
-
-.focusLabel {
+.focusKicker {
+  font-size: 0.8rem;
   font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--text-primary);
-  flex-shrink: 0;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
 }
 
-.focusDesc {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
+.focusName {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 /* 最新文章 */

@@ -39,20 +39,18 @@ export default function Home() {
       {/* ===== 第二屏：方向 + 最新文章（单列） ===== */}
       <section className={styles.homeSection}>
         <div className={styles.sectionHeadingWrapper}>
-          <span className="section-heading">方向 / FOCUS</span>
+          <span className="section-heading">领域 / FOCUS</span>
         </div>
-        <ul className={styles.focusList}>
-          <li className={styles.focusItem}>
-            <span className={styles.focusIcon} aria-hidden="true">🔬</span>
-            <span className={styles.focusLabel}>科研</span>
-            <span className={styles.focusDesc}>多视图聚类</span>
-          </li>
-          <li className={styles.focusItem}>
-            <span className={styles.focusIcon} aria-hidden="true">🛠️</span>
-            <span className={styles.focusLabel}>工程</span>
-            <span className={styles.focusDesc}>全栈开发</span>
-          </li>
-        </ul>
+        <div className={styles.focusGrid}>
+          <div className={styles.focusBlock}>
+            <span className={styles.focusKicker}>🔬 科研 · 数据挖掘方向</span>
+            <span className={`${styles.focusName} gradient-text`}>多视图聚类</span>
+          </div>
+          <div className={styles.focusBlock}>
+            <span className={styles.focusKicker}>🛠️ 工程 · 把想法做成真实产品</span>
+            <span className={`${styles.focusName} gradient-text`}>全栈开发</span>
+          </div>
+        </div>
 
         <div className={`${styles.sectionHeadingWrapper} ${styles.postsHeading}`}>
           <span className="section-heading">最新文章 / LATEST WRITINGS</span>
