@@ -1,0 +1,39 @@
+/* ==========================================
+   CODE BLOCK — copy button wrapper
+   ========================================== */
+
+.codeBlock {
+  position: relative;
+}
+
+.copyBtn {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-main);
+  color: #9da5b4;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, color 0.15s ease, background 0.15s ease;
+  z-index: 2;
+}
+
+.codeBlock:hover .copyBtn,
+.copyBtn:focus-visible {
+  opacity: 1;
+}
+
+.copyBtn:hover {
+  color: #e6e8ee;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.copyBtnCopied {
+  color: #7ee2a8;
+}

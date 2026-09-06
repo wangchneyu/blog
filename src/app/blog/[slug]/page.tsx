@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import Comments from "@/components/Comments";
 import ViewCounter from "@/components/ViewCounter";
 import TableOfContents from "@/components/TableOfContents";
+import CodeBlock from "@/components/CodeBlock";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -116,6 +117,9 @@ export default async function Post({ params }: Props) {
           <div className={`${styles.postContent} post-content`}>
             <MDXRemote
               source={postData.content || ""}
+              components={{
+                pre: CodeBlock,
+              }}
               options={{
                 mdxOptions: {
                   remarkPlugins: [remarkGfm, remarkMath],
