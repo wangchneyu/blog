@@ -1,0 +1,20 @@
+/* ==========================================
+   COMMENTS — Giscus wrapper
+   ========================================== */
+
+.commentsSection {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.commentsTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+}
+
+.commentsPlaceholder {
+  min-height: 300px;
+}

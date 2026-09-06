@@ -1,0 +1,197 @@
+/* ========================================
+   ABOUT PAGE — Premium Timeline Design
+   ======================================== */
+
+.aboutContainer {
+  padding: 8rem 2rem 6rem;
+  max-width: var(--max-prose);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Page Header */
+.pageHeader {
+  margin-bottom: 4rem;
+  animation: fadeInUp 0.7s ease-out both;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-1);
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+}
+
+.intro {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ===== SECTION ===== */
+.section {
+  margin-bottom: 4rem;
+  animation: fadeInUp 0.7s ease-out 0.2s both;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.sectionIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.sectionTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.sectionSubtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* ===== TIMELINE ===== */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent-1), var(--accent-2), transparent);
+  border-radius: 2px;
+}
+
+.timelineItem {
+  position: relative;
+  padding: 1.5rem 0 1.5rem 2.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.timelineItem:last-child {
+  border-bottom: none;
+}
+
+.timelineItem::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 1.9rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-1);
+  box-shadow: 0 0 0 4px var(--bg-primary), 0 0 0 6px rgba(99, 102, 241, 0.2);
+  transition: box-shadow 0.3s ease;
+  animation: pulseDot 3s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0% { box-shadow: 0 0 0 4px var(--bg-primary), 0 0 0 6px rgba(99, 102, 241, 0.2); }
+  50% { box-shadow: 0 0 0 4px var(--bg-primary), 0 0 0 10px rgba(99, 102, 241, 0.4); }
+  100% { box-shadow: 0 0 0 4px var(--bg-primary), 0 0 0 6px rgba(99, 102, 241, 0.2); }
+}
+
+.timelineItem:hover::before {
+  box-shadow: 0 0 0 4px var(--bg-primary), 0 0 0 8px rgba(99, 102, 241, 0.3);
+}
+
+.itemHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.itemTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.itemDate {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-1);
+  background: rgba(99, 102, 241, 0.1);
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.itemOrg {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.itemDesc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.backLink:hover {
+  color: var(--accent-1);
+  gap: 0.75rem;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+  .aboutContainer {
+    padding: 3.5rem 1.25rem 5rem;
+  }
+  .title {
+    font-size: 2.5rem;
+  }
+  .itemHeader {
+    flex-direction: column;
+  }
+}

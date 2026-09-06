@@ -1,0 +1,62 @@
+/* ==========================================
+   BLOG POST — Loading skeleton
+   ========================================== */
+
+.loadingWrap {
+  padding: 5rem 2rem 7rem;
+  position: relative;
+  z-index: 1;
+}
+
+.loadingInner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.skeleton {
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+.backLinkSkeleton {
+  width: 120px;
+  height: 20px;
+  margin-bottom: 2.5rem;
+}
+
+.titleSkeleton {
+  height: 48px;
+  border-radius: 8px;
+  margin: 0 auto 1rem;
+}
+
+.titleSkeletonShort {
+  width: 60%;
+  margin-bottom: 3rem;
+}
+
+.lineSkeleton {
+  height: 16px;
+  margin-bottom: 1rem;
+}
+
+.gap {
+  height: 2rem;
+}
+
+@keyframes skeletonPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}

@@ -1,0 +1,83 @@
+/* ==========================================
+   HEADER — Glassmorphism Sticky Navigation
+   ========================================== */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  /* glass effect */
+  background: var(--bg-glass);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--border-color);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  transition: opacity 0.2s ease;
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.navLink {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius-md);
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.navLink:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+}
+
+.active {
+  color: var(--accent-1) !important;
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.navDivider {
+  width: 1px;
+  height: 20px;
+  background: var(--border-color);
+  margin: 0 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .headerContent {
+    padding: 0 1.25rem;
+  }
+  .navLink {
+    padding: 0.5rem 0.625rem;
+    font-size: 0.85rem;
+  }
+}

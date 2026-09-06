@@ -1,0 +1,50 @@
+/* ==========================================
+   TABLE OF CONTENTS — Desktop Sidebar
+   ========================================== */
+
+.tocNav {
+  position: sticky;
+  top: 100px;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  padding-left: 1rem;
+  border-left: 2px solid var(--border-color);
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+
+.tocTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.tocList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tocItem {
+  margin-bottom: 0.25rem;
+}
+
+.tocLink {
+  display: block;
+  padding: 0.15rem 0;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.tocLink:hover {
+  color: var(--text-primary);
+}
+
+.tocLinkActive {
+  color: var(--accent-1);
+  font-weight: 600;
+}
