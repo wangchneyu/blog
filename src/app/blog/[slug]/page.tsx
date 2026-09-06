@@ -61,6 +61,16 @@ export default async function Post({ params }: Props) {
   const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
   const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 
+  // 按共享标签数推荐相关文章（最多 2 篇）
+  const currentTags = new Set(postData.tags || []);
+  const relatedPosts = allPosts
+    .filter(p => p.slug !== resolvedParams.slug)
+    .map(p => ({ post: p, shared: (p.tags || []).filter(t => currentTags.has(t)).length }))
+    .filter(({ shared }) => shared > 0)
+    .sort((a, b) => b.shared - a.shared)
+    .slice(0, 2)
+    .map(({ post }) => post);
+
   return (
     <div className={styles.postContainer}>
       <article className={styles.article}>
@@ -152,6 +162,21 @@ export default async function Post({ params }: Props) {
           ) : <div />}
         </div>
         
+        {relatedPosts.length > 0 && (
+          <section className={styles.relatedSection}>
+            <h2 className={styles.relatedHeading}>相关文章</h2>
+            <div className={styles.relatedList}>
+              {relatedPosts.map(p => (
+                <Link key={p.slug} href={`/blog/${p.slug}`} className={styles.relatedItem}>
+                  <span className={styles.relatedItemDate}>{p.date}</span>
+                  <span className={styles.relatedItemTitle}>{p.title}</span>
+                  <span className={styles.relatedItemArrow}>→</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
         <Comments />
       </article>
     </div>

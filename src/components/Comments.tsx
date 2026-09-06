@@ -2,7 +2,7 @@
 
 import Giscus from "@giscus/react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import styles from "./Comments.module.css";
 
 // 替换以下三项后评论区自动启用；未配置时不渲染任何占位内容
@@ -13,13 +13,16 @@ const GISCUS_CATEGORY_ID = "[YOUR_CATEGORY_ID]";
 const GISCUS_CONFIGURED =
   !GISCUS_REPO.startsWith("[") && !GISCUS_REPO_ID.startsWith("[") && !GISCUS_CATEGORY_ID.startsWith("[");
 
+const emptySubscribe = () => () => {};
+
 export default function Comments() {
   const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // 服务端快照 false、客户端快照 true，水合后即为已挂载
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   if (!GISCUS_CONFIGURED) return null;
 

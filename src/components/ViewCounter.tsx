@@ -16,10 +16,15 @@ export default function ViewCounter({
   useEffect(() => {
     const fetchViews = async () => {
       try {
-        const url = `/api/views/${slug}`;
-        const res = await fetch(url, {
-          method: trackView ? "POST" : "GET",
+        const key = `viewed:${slug}`;
+        // 同一会话内刷新不重复计数
+        const alreadyViewed = trackView && sessionStorage.getItem(key) === "1";
+        const res = await fetch(`/api/views/${slug}`, {
+          method: alreadyViewed ? "GET" : trackView ? "POST" : "GET",
         });
+        if (trackView && !alreadyViewed) {
+          sessionStorage.setItem(key, "1");
+        }
         const data = await res.json();
         setViews(data.views);
       } catch (error) {

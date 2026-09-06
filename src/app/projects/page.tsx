@@ -7,7 +7,17 @@ export const metadata: Metadata = {
   description: "wangc 的全栈开发与 AI Agent 项目展示。",
 };
 
-const projects = [
+interface Project {
+  title: string;
+  role: string;
+  status: string;
+  desc: string;
+  tags: string[];
+  icon: string;
+  link?: string; // 项目仓库或演示地址，填了才显示"访问项目"
+}
+
+const projects: Project[] = [
   {
     title: "安养通 - 智慧养老",
     role: "PM + Agent 开发工程师",
@@ -91,6 +101,12 @@ export default function Projects() {
                 <span key={tag} className={styles.projectTag}>{tag}</span>
               ))}
             </div>
+
+            {project.link && (
+              <a href={project.link} target="_blank" rel="noreferrer" className={styles.projectLink}>
+                访问项目 ↗
+              </a>
+            )}
           </div>
         ))}
       </div>
