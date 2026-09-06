@@ -28,6 +28,9 @@ export default function Home() {
               阅读最新文章
             </Link>
           </div>
+          <a href="#focus" className={styles.scrollCue} aria-label="向下滚动查看更多">
+            <span className={styles.scrollCueIcon} aria-hidden="true">↓</span>
+          </a>
         </div>
         <div className={styles.heroDecoration} aria-hidden="true">
           <div className={styles.floatingOrb1} />
@@ -37,7 +40,7 @@ export default function Home() {
       </section>
 
       {/* ===== 第二屏：方向 + 最新文章（单列） ===== */}
-      <section className={styles.homeSection}>
+      <section id="focus" className={styles.homeSection}>
         <div className={styles.sectionHeadingWrapper}>
           <span className="section-heading">领域 / FOCUS</span>
         </div>

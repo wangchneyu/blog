@@ -16,6 +16,47 @@
   overflow: hidden;
 }
 
+/* 滚动引导：衔接首屏与第二屏 */
+.scrollCue {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  z-index: 2;
+}
+
+.scrollCue:hover {
+  color: var(--accent-1);
+  border-color: var(--accent-1);
+}
+
+.scrollCueIcon {
+  animation: cueBounce 2s ease-in-out infinite;
+}
+
+@keyframes cueBounce {
+  0%, 100% { transform: translateY(-1px); }
+  50% { transform: translateY(4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollCueIcon {
+    animation: none;
+  }
+}
+
 .heroContent {
   position: relative;
   z-index: 2;
@@ -179,13 +220,16 @@
 .focusGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 
 .focusBlock {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  padding-left: 1.25rem;
+  border-left: 2px solid;
+  border-image: linear-gradient(to bottom, var(--accent-1), var(--accent-2)) 1;
 }
 
 .focusKicker {
