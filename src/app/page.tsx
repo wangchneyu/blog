@@ -46,6 +46,7 @@ export default function Home() {
           {/* Main Intro Card */}
           <div className={`glass-card no-hover ${styles.bentoCard} ${styles.introBento}`}>
             <div className={styles.bentoCardInner}>
+              <span className={styles.iconChip} aria-hidden="true">🧑‍💻</span>
               <h2 className={styles.bentoHeading}>全栈工程与智能体构建</h2>
               <p className={styles.bentoText}>
                 从管理平台的全栈开发，到“智慧养老”等多个场景的 AI Agent 落地。我享受将软件工程理论与前沿 AI 技术结合，转化为实际产品的整个过程。
@@ -62,18 +63,18 @@ export default function Home() {
               
               {/* Item 1 */}
               <div className={styles.snapshotItem}>
-                <span className={styles.snapshotIcon}>🎓</span>
+                <span className={styles.snapshotIconChip} aria-hidden="true">🎓</span>
                 <div className={styles.snapshotContent}>
                   <h3 className={styles.snapshotTitle}>当前在读</h3>
                   <p className={styles.snapshotDesc}>河北师大<br />软件工程专业</p>
                 </div>
               </div>
-              
+
               <div className={styles.snapshotDivider} aria-hidden="true" />
-              
+
               {/* Item 2 */}
               <div className={styles.snapshotItem}>
-                <span className={styles.snapshotIcon}>🔬</span>
+                <span className={styles.snapshotIconChip} aria-hidden="true">🔬</span>
                 <div className={styles.snapshotContent}>
                   <h3 className={styles.snapshotTitle}>核心技能</h3>
                   <p className={styles.snapshotDesc}>全栈开发与<br />AI Agent 研发</p>
@@ -81,10 +82,10 @@ export default function Home() {
               </div>
 
               <div className={styles.snapshotDivider} aria-hidden="true" />
-              
+
               {/* Item 3 */}
               <div className={styles.snapshotItem}>
-                <span className={styles.snapshotIcon}>💼</span>
+                <span className={styles.snapshotIconChip} aria-hidden="true">💼</span>
                 <div className={styles.snapshotContent}>
                   <h3 className={styles.snapshotTitle}>科研竞赛</h3>
                   <p className={styles.snapshotDesc}>多视图聚类<br />数学建模获奖者</p>
