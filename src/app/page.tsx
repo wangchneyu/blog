@@ -23,11 +23,12 @@ export default function Home() {
           </h1>
           <p className={styles.heroSubtitle}>
             Hi, 我是 wangc。目前就读于河北师范大学软件工程专业。
-            我专注于全栈开发与 AI Agent 智能体的构建，同时热衷于数学建模、学术研究与开源贡献。
+            我的主线是科研——专注于多视图聚类等数据挖掘方向，同时以全栈开发与 AI Agent
+            智能体把想法做成真实产品，并热爱数学建模与开源贡献。
           </p>
           <p className={styles.heroNow}>
             <span className={styles.nowDot} aria-hidden="true" />
-            现在：ICLR 2027 在投 · 备战数学建模省赛 · 写这个博客
+            现在：ICLR 2027 在投 · 写这个博客 · 备战数学建模省赛
           </p>
           <div className={styles.heroCta}>
             <Link href="/about" className={styles.primaryBtn}>
@@ -56,10 +57,11 @@ export default function Home() {
           {/* Main Intro Card */}
           <div className={`glass-card no-hover ${styles.bentoCard} ${styles.introBento}`}>
             <div className={styles.bentoCardInner}>
-              <span className={styles.iconChip} aria-hidden="true">🧑‍💻</span>
-              <h2 className={styles.bentoHeading}>全栈工程与智能体构建</h2>
+              <span className={styles.iconChip} aria-hidden="true">🔬</span>
+              <h2 className={styles.bentoHeading}>以科研为主线，让智能体落地</h2>
               <p className={styles.bentoText}>
-                从管理平台的全栈开发，到“智慧养老”等多个场景的 AI Agent 落地。我享受将软件工程理论与前沿 AI 技术结合，转化为实际产品的整个过程。
+                科研上，我专注于多视图聚类方向的数据挖掘研究，成果已投稿 ICLR 2027；工程上，
+                我享受把 AI Agent 与全栈技术转化为真实产品——从校园管理平台到智慧养老场景。
               </p>
               <Link href="/about" className={styles.bentoLink}>
                 查看完整科研与项目细节 <span aria-hidden>→</span>
@@ -89,10 +91,10 @@ export default function Home() {
 
               {/* Item 2 */}
               <div className={styles.snapshotItem}>
-                <span className={styles.snapshotIconChip} aria-hidden="true">🔬</span>
+                <span className={styles.snapshotIconChip} aria-hidden="true">📊</span>
                 <div className={styles.snapshotContent}>
-                  <h3 className={styles.snapshotTitle}>核心技能</h3>
-                  <p className={styles.snapshotDesc}>全栈开发与<br />AI Agent 研发</p>
+                  <h3 className={styles.snapshotTitle}>科研方向</h3>
+                  <p className={styles.snapshotDesc}>多视图聚类<br />ICLR 2027 在投</p>
                 </div>
               </div>
 
@@ -100,10 +102,10 @@ export default function Home() {
 
               {/* Item 3 */}
               <div className={styles.snapshotItem}>
-                <span className={styles.snapshotIconChip} aria-hidden="true">💼</span>
+                <span className={styles.snapshotIconChip} aria-hidden="true">🛠️</span>
                 <div className={styles.snapshotContent}>
-                  <h3 className={styles.snapshotTitle}>科研竞赛</h3>
-                  <p className={styles.snapshotDesc}>多视图聚类<br />数学建模获奖者</p>
+                  <h3 className={styles.snapshotTitle}>工程实践</h3>
+                  <p className={styles.snapshotDesc}>全栈开发<br />AI Agent 落地</p>
                 </div>
               </div>
 
