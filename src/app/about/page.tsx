@@ -15,11 +15,9 @@ export default function About() {
       </Link>
       
       <div className={styles.pageHeader}>
-        <span className={styles.tag}>🧑‍💻 Personal Overview</span>
         <h1 className={styles.title}>关于我</h1>
         <p className={styles.intro}>
           从校园到实验室，从代码到论文——这里记录着我一步步走过的每一段路。
-          Welcome to my story.
         </p>
       </div>
 
