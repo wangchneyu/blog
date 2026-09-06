@@ -1,9 +1,15 @@
 import Link from "next/link";
 import { getSortedPostsData } from "@/lib/markdown";
+import { projects } from "@/lib/projects";
 import styles from "./page.module.css";
 
+// 已获奖项，获奖后手动更新
+const AWARD_COUNT = 2;
+
 export default function Home() {
-  const recentPosts = getSortedPostsData().slice(0, 3);
+  const allPosts = getSortedPostsData();
+  const recentPosts = allPosts.slice(0, 3);
+  const featuredProjects = projects.filter((p) => p.featured);
 
   return (
     <div className={styles.page}>
@@ -18,6 +24,10 @@ export default function Home() {
           <p className={styles.heroSubtitle}>
             Hi, 我是 wangc。目前就读于河北师范大学软件工程专业。
             我专注于全栈开发与 AI Agent 智能体的构建，同时热衷于数学建模、学术研究与开源贡献。
+          </p>
+          <p className={styles.heroNow}>
+            <span className={styles.nowDot} aria-hidden="true" />
+            现在：ICLR 2027 在投 · 备战数学建模省赛 · 写这个博客
           </p>
           <div className={styles.heroCta}>
             <Link href="/about" className={styles.primaryBtn}>
@@ -54,6 +64,11 @@ export default function Home() {
               <Link href="/about" className={styles.bentoLink}>
                 查看完整科研与项目细节 <span aria-hidden>→</span>
               </Link>
+              <div className={styles.bentoStats}>
+                <span><strong>{projects.length}</strong> 个项目</span>
+                <span><strong>{allPosts.length}</strong> 篇文章</span>
+                <span><strong>{AWARD_COUNT}</strong> 项竞赛奖项</span>
+              </div>
             </div>
           </div>
 
@@ -95,6 +110,54 @@ export default function Home() {
             </div>
           </div>
 
+        </div>
+      </section>
+
+      {/* ===== ZONE 2.5: FEATURED PROJECTS (Proof) ===== */}
+      <section className={`container ${styles.featuredSection}`}>
+        <div className={styles.sectionHeadingWrapper}>
+          <span className="section-heading">精选项目 / FEATURED WORK</span>
+        </div>
+
+        <div className={styles.featuredGrid}>
+          {featuredProjects.map((project) => {
+            const card = (
+              <>
+                <div className={styles.featuredCardTop}>
+                  <span className={styles.iconChip} aria-hidden="true">{project.icon}</span>
+                  <span className={styles.featuredStatus}>{project.status}</span>
+                </div>
+                <h3 className={styles.featuredTitle}>{project.title}</h3>
+                <p className={styles.featuredDesc}>{project.desc}</p>
+                <span className={styles.featuredMore}>了解详情 →</span>
+              </>
+            );
+            return project.link ? (
+              <a
+                key={project.title}
+                href={project.link}
+                target="_blank"
+                rel="noreferrer"
+                className={`glass-card ${styles.featuredCard}`}
+              >
+                {card}
+              </a>
+            ) : (
+              <Link
+                key={project.title}
+                href="/projects"
+                className={`glass-card ${styles.featuredCard}`}
+              >
+                {card}
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className={styles.featuredFooter}>
+          <Link href="/projects" className={styles.bentoLink}>
+            查看全部项目 <span aria-hidden>→</span>
+          </Link>
         </div>
       </section>
 
