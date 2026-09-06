@@ -178,27 +178,18 @@
   }
 }
 
-/* === CONTENT WITH SIDEBAR LAYOUT === */
-.contentWithSidebar {
-  display: flex;
-  gap: 3rem;
-  align-items: flex-start;
-}
-
-.postContent {
-  flex: 1;
-  min-width: 0;
-}
-
+/* === 目录侧栏：宽屏固定于正文右侧留白，不挤占正文宽度 === */
 .tocSidebar {
   display: none;
-  width: 220px;
-  flex-shrink: 0;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .tocSidebar {
     display: block;
+    position: fixed;
+    top: 96px;
+    right: calc((100vw - var(--max-prose)) / 2 - 250px);
+    width: 220px;
   }
 }
 
@@ -236,7 +227,7 @@
   color: var(--accent-1);
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1279px) {
   .mobileToc {
     display: block;
   }

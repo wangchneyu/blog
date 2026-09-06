@@ -3,9 +3,8 @@
    ========================================== */
 
 .tocNav {
-  position: sticky;
-  top: 100px;
-  max-height: calc(100vh - 140px);
+  /* 由外层 aside 控制定位（fixed 侧栏） */
+  max-height: calc(100vh - 160px);
   overflow-y: auto;
   padding-left: 1rem;
   border-left: 2px solid var(--border-color);

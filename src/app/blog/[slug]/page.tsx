@@ -123,28 +123,26 @@ export default async function Post({ params }: Props) {
           </details>
         )}
 
-        <div className={styles.contentWithSidebar}>
-          <div className={`${styles.postContent} post-content`}>
-            <MDXRemote
-              source={postData.content || ""}
-              components={{
-                pre: CodeBlock,
-              }}
-              options={{
-                mdxOptions: {
-                  remarkPlugins: [remarkGfm, remarkMath],
-                  rehypePlugins: [rehypeKatex, rehypeHighlight, rehypeSlug],
-                },
-              }}
-            />
-          </div>
-
-          {tocItems.length > 0 && (
-            <aside className={styles.tocSidebar}>
-              <TableOfContents items={tocItems} />
-            </aside>
-          )}
+        <div className={`post-content ${styles.postContent}`}>
+          <MDXRemote
+            source={postData.content || ""}
+            components={{
+              pre: CodeBlock,
+            }}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm, remarkMath],
+                rehypePlugins: [rehypeKatex, rehypeHighlight, rehypeSlug],
+              },
+            }}
+          />
         </div>
+
+        {tocItems.length > 0 && (
+          <aside className={styles.tocSidebar} aria-label="目录">
+            <TableOfContents items={tocItems} />
+          </aside>
+        )}
 
         <div className={styles.postNavigation}>
           {prevPost ? (
