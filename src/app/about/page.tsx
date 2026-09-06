@@ -172,6 +172,20 @@ export default function About() {
           </article>
         </div>
       </section>
+
+      <div className={styles.contactLine}>
+        <a href="mailto:wangchenyu@stu.hebtu.edu.cn" className={styles.contactLink}>
+          ✉ 邮箱
+        </a>
+        <a
+          href="https://github.com/wangchneyu"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.contactLink}
+        >
+          GitHub ↗
+        </a>
+      </div>
     </div>
   );
 }

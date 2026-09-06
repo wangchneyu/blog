@@ -122,3 +122,22 @@
     gap: 0.35rem;
   }
 }
+
+.contactLine {
+  display: flex;
+  gap: 1.75rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.contactLink {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-1);
+  transition: opacity 0.2s ease;
+}
+
+.contactLink:hover {
+  opacity: 0.75;
+}
