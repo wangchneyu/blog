@@ -35,7 +35,7 @@ function calculateReadingTime(content: string): string {
     .filter(Boolean).length;
   // 中文 ~400 字/分钟，英文 ~200 词/分钟
   const minutes = Math.max(1, Math.ceil(chineseChars / 400 + englishWords / 200));
-  return `${minutes} min read`;
+  return `${minutes} 分钟阅读`;
 }
 
 export function getSortedPostsData(): PostData[] {

@@ -2,7 +2,15 @@
 
 import { useEffect, useState } from "react";
 
-export default function ViewCounter({ slug, trackView }: { slug: string; trackView?: boolean }) {
+export default function ViewCounter({
+  slug,
+  trackView,
+  className,
+}: {
+  slug: string;
+  trackView?: boolean;
+  className?: string;
+}) {
   const [views, setViews] = useState<number | null>(null);
 
   useEffect(() => {
@@ -22,7 +30,12 @@ export default function ViewCounter({ slug, trackView }: { slug: string; trackVi
     fetchViews();
   }, [slug, trackView]);
 
+  // 加载完成前不渲染，避免悬空的分隔符
   if (views === null) return null;
 
-  return <span>👁 {views.toLocaleString()} views</span>;
+  return (
+    <span className={className}>
+      · 👁 {views.toLocaleString()} 次浏览
+    </span>
+  );
 }

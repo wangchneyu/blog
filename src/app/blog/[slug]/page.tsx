@@ -73,9 +73,9 @@ export default async function Post({ params }: Props) {
           <div className={styles.metaRow}>
             <time className={styles.postDate}>{postData.date}</time>
             {postData.readingTime && (
-              <span className={styles.readingTime}> · {postData.readingTime}</span>
+              <span className={styles.readingTime}>· {postData.readingTime}</span>
             )}
-            <span className={styles.readingTime}> · <ViewCounter slug={postData.slug} trackView={true} /></span>
+            <ViewCounter slug={postData.slug} trackView={true} className={styles.readingTime} />
           </div>
           
           <h1 className={styles.postTitle}>{postData.title}</h1>

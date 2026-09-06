@@ -61,7 +61,7 @@ export default function Blog() {
                   )}
                   <div className={styles.tagList}>
                     {readingTime && <span className={styles.readingTimeMeta}>{readingTime}</span>}
-                    <span className={styles.readingTimeMeta}>· <ViewCounter slug={slug} trackView={false} /></span>
+                    <ViewCounter slug={slug} trackView={false} className={styles.readingTimeMeta} />
                   </div>
                   <p className={styles.postExcerpt}>{excerpt}</p>
                 </div>

@@ -31,12 +31,20 @@
 }
 
 .heroTitle {
-  font-size: clamp(3rem, 7vw, 6rem);
+  font-size: clamp(2.5rem, 5.5vw, 4.75rem);
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.25;
   letter-spacing: -0.04em;
   color: var(--text-primary);
   max-width: 900px;
+  text-wrap: balance;
+}
+
+/* 移动端去掉手写换行，交给 balance 自然断行 */
+@media (max-width: 640px) {
+  .heroTitle br {
+    display: none;
+  }
 }
 
 .highlighted {
