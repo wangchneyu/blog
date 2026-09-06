@@ -15,6 +15,7 @@ export function Footer() {
           <Link href="/about" className={styles.footerLink}>关于我</Link>
           <Link href="/projects" className={styles.footerLink}>项目</Link>
           <Link href="/blog" className={styles.footerLink}>文章</Link>
+          <a href="mailto:wangchenyu@stu.hebtu.edu.cn" className={styles.footerLink}>邮箱</a>
           <a href="https://github.com/wangchneyu" target="_blank" rel="noreferrer" className={styles.footerLink}>GitHub</a>
           <a href="/rss.xml" className={styles.footerLink}>RSS</a>
         </nav>

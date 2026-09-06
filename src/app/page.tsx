@@ -1,15 +1,10 @@
 import Link from "next/link";
 import { getSortedPostsData } from "@/lib/markdown";
-import { projects } from "@/lib/projects";
 import styles from "./page.module.css";
-
-// 已获奖项，获奖后手动更新
-const AWARD_COUNT = 2;
 
 export default function Home() {
   const allPosts = getSortedPostsData();
   const recentPosts = allPosts.slice(0, 3);
-  const featuredProjects = projects.filter((p) => p.featured);
 
   return (
     <div className={styles.page}>
@@ -41,105 +36,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 分屏：最新文章 + 侧栏 ===== */}
-      <section className={`container ${styles.splitSection}`}>
-        <div className={styles.splitGrid}>
-          {/* 左：最新文章 */}
-          <div className={styles.postsCol}>
-            <div className={styles.sectionHeadingWrapper}>
-              <span className="section-heading">最新文章 / LATEST WRITINGS</span>
-            </div>
-            <div className={`glass-card ${styles.postListWrapper}`}>
-              <div className={styles.postList}>
-                {recentPosts.length === 0 ? (
-                  <p className={styles.emptyMsg}>文章即将发布……</p>
-                ) : (
-                  recentPosts.map(({ slug, title, date, excerpt }) => (
-                    <Link href={`/blog/${slug}`} key={slug} className={styles.postRow}>
-                      <div className={styles.postRowMeta}>
-                        <time className={styles.postDate}>{date}</time>
-                      </div>
-                      <div className={styles.postRowBody}>
-                        <h3 className={styles.postTitle}>{title}</h3>
-                        <p className={styles.postExcerpt}>{excerpt}</p>
-                      </div>
-                      <span className={styles.postArrow}>→</span>
-                    </Link>
-                  ))
-                )}
-              </div>
-              <div className={styles.postListFooter}>
-                <Link href="/blog" className={styles.bentoLink}>
-                  阅读所有文章 <span aria-hidden>→</span>
+      {/* ===== 第二屏：方向 + 最新文章（单列） ===== */}
+      <section className={styles.homeSection}>
+        <div className={styles.sectionHeadingWrapper}>
+          <span className="section-heading">方向 / FOCUS</span>
+        </div>
+        <ul className={styles.focusList}>
+          <li className={styles.focusItem}>
+            <span className={styles.focusIcon} aria-hidden="true">🔬</span>
+            <span className={styles.focusLabel}>科研</span>
+            <span className={styles.focusDesc}>多视图聚类 · ICLR 2027 在投</span>
+          </li>
+          <li className={styles.focusItem}>
+            <span className={styles.focusIcon} aria-hidden="true">🛠️</span>
+            <span className={styles.focusLabel}>工程</span>
+            <span className={styles.focusDesc}>全栈开发 · AI Agent 落地</span>
+          </li>
+          <li className={styles.focusItem}>
+            <span className={styles.focusIcon} aria-hidden="true">🏅</span>
+            <span className={styles.focusLabel}>竞赛</span>
+            <span className={styles.focusDesc}>数学建模 · 校赛三等奖，备战省赛</span>
+          </li>
+        </ul>
+
+        <div className={`${styles.sectionHeadingWrapper} ${styles.postsHeading}`}>
+          <span className="section-heading">最新文章 / LATEST WRITINGS</span>
+        </div>
+        <div className={`glass-card ${styles.postListWrapper}`}>
+          <div className={styles.postList}>
+            {recentPosts.length === 0 ? (
+              <p className={styles.emptyMsg}>文章即将发布……</p>
+            ) : (
+              recentPosts.map(({ slug, title, date, excerpt }) => (
+                <Link href={`/blog/${slug}`} key={slug} className={styles.postRow}>
+                  <div className={styles.postRowMeta}>
+                    <time className={styles.postDate}>{date}</time>
+                  </div>
+                  <div className={styles.postRowBody}>
+                    <h3 className={styles.postTitle}>{title}</h3>
+                    <p className={styles.postExcerpt}>{excerpt}</p>
+                  </div>
+                  <span className={styles.postArrow}>→</span>
                 </Link>
-              </div>
-            </div>
+              ))
+            )}
           </div>
-
-          {/* 右：侧栏 */}
-          <aside className={styles.sideCol}>
-            {/* 关于我迷你卡 */}
-            <div className={`glass-card no-hover ${styles.sideCard}`}>
-              <span className={styles.iconChip} aria-hidden="true">🔬</span>
-              <h2 className={styles.sideTitle}>wangc</h2>
-              <p className={styles.sideText}>
-                河北师范大学软件工程在读。主线是科研——多视图聚类方向，ICLR 2027
-                在投；同时以全栈与 AI Agent 把想法做成真实产品。
-              </p>
-              <div className={styles.bentoStats}>
-                <span><strong>{projects.length}</strong> 个项目</span>
-                <span><strong>{allPosts.length}</strong> 篇文章</span>
-                <span><strong>{AWARD_COUNT}</strong> 项竞赛奖项</span>
-              </div>
-              <div className={styles.sideLinks}>
-                <a href="mailto:wangchenyu@stu.hebtu.edu.cn" className={styles.bentoLink}>
-                  ✉ 邮箱
-                </a>
-                <a
-                  href="https://github.com/wangchneyu"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={styles.bentoLink}
-                >
-                  GitHub ↗
-                </a>
-              </div>
-            </div>
-
-            {/* 精选项目 */}
-            <div className={`glass-card no-hover ${styles.sideCard}`}>
-              <h3 className={styles.sideHeading}>精选项目</h3>
-              <ul className={styles.sideList}>
-                {featuredProjects.map((project) =>
-                  project.link ? (
-                    <li key={project.title}>
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        className={styles.sideItem}
-                      >
-                        <span className={styles.sideItemIcon} aria-hidden="true">{project.icon}</span>
-                        <span className={styles.sideItemTitle}>{project.title}</span>
-                        <span className={styles.sideItemStatus}>{project.status}</span>
-                      </a>
-                    </li>
-                  ) : (
-                    <li key={project.title}>
-                      <Link href="/projects" className={styles.sideItem}>
-                        <span className={styles.sideItemIcon} aria-hidden="true">{project.icon}</span>
-                        <span className={styles.sideItemTitle}>{project.title}</span>
-                        <span className={styles.sideItemStatus}>{project.status}</span>
-                      </Link>
-                    </li>
-                  )
-                )}
-              </ul>
-              <Link href="/projects" className={styles.bentoLink}>
-                查看全部项目 <span aria-hidden>→</span>
-              </Link>
-            </div>
-          </aside>
+          <div className={styles.postListFooter}>
+            <Link href="/blog" className={styles.bentoLink}>
+              阅读所有文章 <span aria-hidden>→</span>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

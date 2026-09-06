@@ -1,5 +1,5 @@
 /* ======================================
-   HOME PAGE — 首屏大界面 + 分屏内容
+   HOME PAGE — 首屏大界面 + 单列内容
    ====================================== */
 
 .page {
@@ -158,23 +158,66 @@
   50% { transform: translate(-20px, 20px) scale(1.05); }
 }
 
-/* ===== 分屏：文章 + 侧栏 ===== */
-.splitSection {
-  padding: 3rem 2rem 5rem;
-}
-
-.splitGrid {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 2rem;
-  align-items: start;
+/* ===== 第二屏：方向 + 文章（单列） ===== */
+.homeSection {
+  position: relative;
+  z-index: 1;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
 }
 
 .sectionHeadingWrapper {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
-/* 左：最新文章 */
+.postsHeading {
+  margin-top: 3.5rem;
+}
+
+/* 方向三行 */
+.focusList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.focusItem {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  padding: 0.9rem 0.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.focusItem:first-child {
+  padding-top: 0.25rem;
+}
+
+.focusItem:last-child {
+  border-bottom: none;
+}
+
+.focusIcon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.focusLabel {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.focusDesc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* 最新文章 */
 .postListWrapper {
   padding: 1rem 2rem;
   animation: fadeInUp 0.7s ease-out 0.2s both;
@@ -258,7 +301,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 600px;
 }
 
 .postArrow {
@@ -267,124 +309,7 @@
   transition: transform 0.2s ease;
 }
 
-/* 右：侧栏 */
-.sideCol {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  position: sticky;
-  top: 88px;
-}
-
-.sideCard {
-  padding: 1.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-.sideTitle {
-  font-size: 1.25rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-}
-
-.sideText {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
-
-.sideLinks {
-  display: flex;
-  gap: 1.25rem;
-  margin-top: 0.25rem;
-}
-
-.sideHeading {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.sideList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.sideItem {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.65rem 0;
-  border-bottom: 1px solid var(--border-color);
-  font-size: 0.9rem;
-}
-
-.sideList li:last-child .sideItem {
-  border-bottom: none;
-}
-
-.sideItemIcon {
-  font-size: 1.05rem;
-  flex-shrink: 0;
-}
-
-.sideItemTitle {
-  flex: 1;
-  min-width: 0;
-  font-weight: 600;
-  color: var(--text-primary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: color 0.2s ease;
-}
-
-.sideItem:hover .sideItemTitle {
-  color: var(--accent-1);
-}
-
-.sideItemStatus {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--accent-1);
-  flex-shrink: 0;
-}
-
-/* ===== 共用小组件 ===== */
-.iconChip {
-  width: 52px;
-  height: 52px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.14), rgba(139, 92, 246, 0.14));
-  border: 1px solid rgba(99, 102, 241, 0.25);
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.18);
-}
-
-.bentoStats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.75rem;
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-}
-
-.bentoStats strong {
-  color: var(--accent-1);
-  font-weight: 700;
-  font-size: 1rem;
-  margin-right: 0.2rem;
-}
-
+/* ===== 共用 ===== */
 .bentoLink {
   font-size: 0.9rem;
   font-weight: 600;
@@ -400,20 +325,11 @@
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 960px) {
-  .splitGrid {
-    grid-template-columns: 1fr;
-  }
-  .sideCol {
-    position: static;
-  }
-}
-
 @media (max-width: 600px) {
   .heroContent {
     padding: 4rem 1.25rem 3rem;
   }
-  .splitSection {
+  .homeSection {
     padding: 2rem 1.25rem 3.5rem;
   }
   .postListWrapper {
@@ -427,7 +343,7 @@
   .postRowMeta {
     display: none;
   }
-  .sideCard {
-    padding: 1.5rem;
+  .postExcerpt {
+    white-space: normal;
   }
 }
