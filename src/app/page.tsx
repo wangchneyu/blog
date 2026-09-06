@@ -45,17 +45,12 @@ export default function Home() {
           <li className={styles.focusItem}>
             <span className={styles.focusIcon} aria-hidden="true">🔬</span>
             <span className={styles.focusLabel}>科研</span>
-            <span className={styles.focusDesc}>多视图聚类 · ICLR 2027 在投</span>
+            <span className={styles.focusDesc}>多视图聚类</span>
           </li>
           <li className={styles.focusItem}>
             <span className={styles.focusIcon} aria-hidden="true">🛠️</span>
             <span className={styles.focusLabel}>工程</span>
-            <span className={styles.focusDesc}>全栈开发 · AI Agent 落地</span>
-          </li>
-          <li className={styles.focusItem}>
-            <span className={styles.focusIcon} aria-hidden="true">🏅</span>
-            <span className={styles.focusLabel}>竞赛</span>
-            <span className={styles.focusDesc}>数学建模 · 校赛三等奖，备战省赛</span>
+            <span className={styles.focusDesc}>全栈开发</span>
           </li>
         </ul>
 
