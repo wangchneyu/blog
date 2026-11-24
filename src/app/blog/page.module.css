@@ -5,7 +5,7 @@
 .blogContainer {
   position: relative;
   z-index: 1;
-  max-width: 820px;
+  max-width: var(--max-content);
   margin: 0 auto;
   padding: 3.5rem 1.5rem 5rem;
 }
@@ -22,7 +22,7 @@
 }
 
 .backLink:hover {
-  color: var(--accent-1);
+  color: var(--accent-text);
   gap: 0.75rem;
 }
 
@@ -52,8 +52,8 @@
 .postRow {
   position: relative;
   display: grid;
-  grid-template-columns: 110px 1fr auto;
-  align-items: center;
+  grid-template-columns: 92px 1fr auto;
+  align-items: start;
   gap: 1.5rem;
   padding: 1.5rem 0.25rem;
   border-bottom: 1px solid var(--border-color);
@@ -76,7 +76,7 @@
 }
 
 .postRow:hover .postTitle {
-  color: var(--accent-1);
+  color: var(--accent-text);
 }
 
 .postRow:hover .postArrow {
@@ -88,6 +88,8 @@
 }
 
 .postDate {
+  display: block;
+  padding-top: 0.15rem;
   font-size: 0.8rem;
   color: var(--text-muted);
   font-weight: 500;
@@ -103,9 +105,10 @@
 .postExcerpt {
   font-size: 0.85rem;
   color: var(--text-secondary);
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .postMetaLine {
@@ -122,7 +125,7 @@
   padding: 0.15rem 0.55rem;
   border-radius: 999px;
   background: var(--bg-secondary);
-  color: var(--accent-1);
+  color: var(--accent-text);
   border: 1px solid var(--border-color);
 }
 
@@ -132,6 +135,7 @@
 }
 
 .postArrow {
+  align-self: center;
   color: var(--text-muted);
   font-size: 1.1rem;
   transition: transform 0.2s ease;
@@ -155,8 +159,5 @@
   }
   .postRowMeta {
     display: none;
-  }
-  .postExcerpt {
-    white-space: normal;
   }
 }

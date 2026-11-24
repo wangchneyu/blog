@@ -5,10 +5,10 @@ import { useTheme } from "next-themes";
 import { useSyncExternalStore } from "react";
 import styles from "./Comments.module.css";
 
-// 替换以下三项后评论区自动启用；未配置时不渲染任何占位内容
-const GISCUS_REPO = "[YOUR_GITHUB_NAME]/[YOUR_GITHUB_REPO]";
-const GISCUS_REPO_ID = "[YOUR_REPO_ID]";
-const GISCUS_CATEGORY_ID = "[YOUR_CATEGORY_ID]";
+// giscus 评论配置；若需临时隐藏可恢复占位符
+const GISCUS_REPO = "wangchneyu/blog";
+const GISCUS_REPO_ID = "R_kgDOV5Zikw";
+const GISCUS_CATEGORY_ID = "DIC_kwDOV5Zik84DL1FO";
 
 const GISCUS_CONFIGURED =
   !GISCUS_REPO.startsWith("[") && !GISCUS_REPO_ID.startsWith("[") && !GISCUS_CATEGORY_ID.startsWith("[");

@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { getSortedPostsData } from "@/lib/markdown";
+import { site } from "@/lib/site";
 import styles from "./page.module.css";
 import { Metadata } from "next";
 import ViewCounter from "@/components/ViewCounter";
 
 export const metadata: Metadata = {
   title: "所有文章",
-  description: "wangc 的全部博客文章：代码、科研与生活的思考与记录。",
+  description: `${site.name} 的全部博客文章：代码、科研与生活的思考与记录。`,
 };
 
 export default function Blog() {

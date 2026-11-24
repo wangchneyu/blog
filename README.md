@@ -27,6 +27,18 @@ draft: true                  # 可选，生产环境完全隐藏，开发环境�
 
 正文支持：GFM 表格/任务列表、KaTeX 公式（`$E=mc^2$`）、代码高亮 + 一键复制按钮、自动标题锚点与目录。正文中的 `##`～`####` 会自动进入目录。
 
+几种写法约定：
+
+```md
+![替代文本](/images/shot.png "这里是题注")   <!-- title 即题注，不写 title 则只出图 -->
+| 左对齐 | 居中 | 右对齐 |                <!-- 表头分隔行用 :--- / :---: / ---: 控制列对齐 -->
+- [x] 已完成项                             <!-- 任务列表，复选框保留原生控件 -->
+```
+
+正文里不要再写一级标题 `#`：页面标题由 frontmatter 的 `title` 渲染，正文首个 H1 会被自动剥离（见 `src/lib/markdown.ts` 的 `stripLeadingH1`）。
+
+各类元素的实拍效果见 `content/posts/prose-specimen.md`（`draft: true`，仅开发环境可见），可直接对照。
+
 ## 需要配置的能力（不配置则优雅降级）
 
 | 能力 | 配置位置 | 未配置时 |
@@ -65,5 +77,9 @@ content/posts/          # Markdown 文章
 src/app/                # 页面（首页/about/projects/blog/tags）+ rss/sitemap/robots
 src/app/api/views/      # 浏览量 API（Vercel KV）
 src/components/         # Header/Footer/TOC/评论/复制按钮等
+src/lib/site.ts         # 站点身份单一数据源：姓名、学校、简介、邮箱、GitHub
+src/lib/projects.ts     # 项目数据：about 项目区 / projects 页共用
 src/lib/markdown.ts     # 文章读取、draft 过滤、阅读时长、TOC 提取
 ```
+
+> 改名字、换邮箱、更新学校或简介，只需改 `src/lib/site.ts`；新增项目只需改 `src/lib/projects.ts`，三处展示会自动同步。

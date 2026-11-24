@@ -34,12 +34,10 @@ export default async function TagPage({ params }: Props) {
       </Link>
 
       <div className={styles.pageHeader}>
-        <span className={styles.tag}>🏷 Tags</span>
+        <span className={styles.postTag}>🏷 Tags</span>
         <h1 className={styles.title}>#{tag}</h1>
-        <p className={styles.subtitle}>共 {posts.length} 篇文章</p>
+        <p className={styles.intro}>共 {posts.length} 篇文章</p>
       </div>
-
-      <div className={styles.divider} />
 
       <div className={styles.postList}>
         {posts.length === 0 ? (
@@ -48,20 +46,20 @@ export default async function TagPage({ params }: Props) {
           </div>
         ) : (
           posts.map(({ slug, title, date, excerpt, readingTime }) => (
-            <Link href={`/blog/${slug}`} key={slug} className={styles.postCard}>
-              <div className={styles.cardDate}>
-                <span className={styles.dateYear}>{date}</span>
+            <Link href={`/blog/${slug}`} key={slug} className={styles.postRow}>
+              <div className={styles.postRowMeta}>
+                <time className={styles.postDate}>{date}</time>
               </div>
-              <div className={styles.cardBody}>
+              <div className={styles.postRowBody}>
                 <h2 className={styles.postTitle}>{title}</h2>
+                <p className={styles.postExcerpt}>{excerpt}</p>
                 {readingTime && (
-                  <div className={styles.tagList}>
+                  <div className={styles.postMetaLine}>
                     <span className={styles.readingTimeMeta}>{readingTime}</span>
                   </div>
                 )}
-                <p className={styles.postExcerpt}>{excerpt}</p>
               </div>
-              <span className={styles.cardArrow}>→</span>
+              <span className={styles.postArrow}>→</span>
             </Link>
           ))
         )}

@@ -4,7 +4,7 @@
 
 .tocNav {
   /* 由外层 aside 控制定位（fixed 侧栏） */
-  max-height: calc(100vh - 160px);
+  max-height: calc(100vh - var(--header-h) - 96px);
   overflow-y: auto;
   padding-left: 1rem;
   border-left: 2px solid var(--border-color);
@@ -44,6 +44,6 @@
 }
 
 .tocLinkActive {
-  color: var(--accent-1);
+  color: var(--accent-text);
   font-weight: 600;
 }

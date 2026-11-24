@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./ThemeToggle";
+import { site } from "@/lib/site";
 import styles from "./Header.module.css";
 
 const NAV_LINKS = [
@@ -18,18 +19,22 @@ export function Header() {
     <header className={styles.header}>
       <div className={styles.headerContent}>
         <Link href="/" className={styles.logo}>
-          wangc.
+          {site.name}.
         </Link>
-        <nav className={styles.nav}>
-          {NAV_LINKS.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={`${styles.navLink} ${pathname.startsWith(href) ? styles.active : ""}`}
-            >
-              {label}
-            </Link>
-          ))}
+        <nav className={styles.nav} aria-label="主导航">
+          {NAV_LINKS.map(({ href, label }) => {
+            const isActive = pathname === href || pathname.startsWith(`${href}/`);
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={`${styles.navLink} ${isActive ? styles.active : ""}`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {label}
+              </Link>
+            );
+          })}
           <span className={styles.navDivider} aria-hidden="true" />
           <ThemeToggle />
         </nav>

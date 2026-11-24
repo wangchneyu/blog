@@ -1,87 +1,46 @@
 import Link from "next/link";
-import { getSortedPostsData } from "@/lib/markdown";
+import { site } from "@/lib/site";
 import styles from "./page.module.css";
 
+/**
+ * 首页只有一屏：身份 + 出口。
+ * 项目、科研、文章分别在 /projects、/about、/blog，首页不再重复陈列。
+ */
 export default function Home() {
-  const allPosts = getSortedPostsData();
-  const recentPosts = allPosts.slice(0, 3);
-
   return (
     <div className={styles.page}>
-      {/* ===== 首屏：HERO ===== */}
       <section className={styles.heroSection}>
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>
-            用代码探索智能的边界，<br />
-            用<span className={`${styles.highlighted} gradient-text`}>文字</span>记录成长。
-          </h1>
-          <p className={styles.heroSubtitle}>
-            Hi, 我是 wangc。目前就读于河北师范大学软件工程专业。
-            我的主线是科研——专注于多视图聚类等数据挖掘方向，同时以全栈开发与 AI Agent
-            智能体把想法做成真实产品，并热爱数学建模与开源贡献。
+          <p className={styles.heroEyebrow}>
+            {site.affiliation} · {site.degree} ·{" "}
+            <span className={styles.keepTogether}>{site.period}</span>
           </p>
+
+          <h1 className={styles.heroTitle}>
+            我是 {site.name}，一名{" "}
+            <span className={`${styles.keepTogether} gradient-text`}>AI Agent</span> 工作者，
+            也研究 <span className={`${styles.keepTogether} gradient-text`}>IMVC</span> 多视图聚类。
+          </h1>
+
           <div className={styles.heroCta}>
-            <Link href="/about" className={styles.primaryBtn}>
-              了解我的完整经历 →
+            <Link href="/projects" className={styles.primaryBtn}>
+              查看项目 →
             </Link>
-            <Link href="/blog" className={styles.ghostBtn}>
-              阅读最新文章
+            <Link href="/about" className={styles.ghostBtn}>
+              关于我
             </Link>
+            <a href={`mailto:${site.email}`} className={styles.ghostBtn}>
+              ✉ 邮箱
+            </a>
+            <a href={site.github} target="_blank" rel="noreferrer" className={styles.ghostBtn}>
+              GitHub ↗
+            </a>
           </div>
-          <a href="#focus" className={styles.scrollCue} aria-label="向下滚动查看更多">
-            <span className={styles.scrollCueIcon} aria-hidden="true">↓</span>
-          </a>
         </div>
         <div className={styles.heroDecoration} aria-hidden="true">
           <div className={styles.floatingOrb1} />
           <div className={styles.floatingOrb2} />
           <div className={styles.floatingOrb3} />
-        </div>
-      </section>
-
-      {/* ===== 第二屏：方向 + 最新文章（单列） ===== */}
-      <section id="focus" className={styles.homeSection}>
-        <div className={styles.sectionHeadingWrapper}>
-          <span className="section-heading">领域 / FOCUS</span>
-        </div>
-        <div className={styles.focusGrid}>
-          <div className={styles.focusBlock}>
-            <span className={styles.focusKicker}>🔬 科研 · 数据挖掘方向</span>
-            <span className={`${styles.focusName} gradient-text`}>多视图聚类</span>
-          </div>
-          <div className={styles.focusBlock}>
-            <span className={styles.focusKicker}>🛠️ 工程 · 把想法做成真实产品</span>
-            <span className={`${styles.focusName} gradient-text`}>全栈开发</span>
-          </div>
-        </div>
-
-        <div className={`${styles.sectionHeadingWrapper} ${styles.postsHeading}`}>
-          <span className="section-heading">最新文章 / LATEST WRITINGS</span>
-        </div>
-        <div className={`glass-card ${styles.postListWrapper}`}>
-          <div className={styles.postList}>
-            {recentPosts.length === 0 ? (
-              <p className={styles.emptyMsg}>文章即将发布……</p>
-            ) : (
-              recentPosts.map(({ slug, title, date, excerpt }) => (
-                <Link href={`/blog/${slug}`} key={slug} className={styles.postRow}>
-                  <div className={styles.postRowMeta}>
-                    <time className={styles.postDate}>{date}</time>
-                  </div>
-                  <div className={styles.postRowBody}>
-                    <h3 className={styles.postTitle}>{title}</h3>
-                    <p className={styles.postExcerpt}>{excerpt}</p>
-                  </div>
-                  <span className={styles.postArrow}>→</span>
-                </Link>
-              ))
-            )}
-          </div>
-          <div className={styles.postListFooter}>
-            <Link href="/blog" className={styles.bentoLink}>
-              阅读所有文章 <span aria-hidden>→</span>
-            </Link>
-          </div>
         </div>
       </section>
     </div>

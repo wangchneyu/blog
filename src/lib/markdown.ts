@@ -109,6 +109,19 @@ export function getAllTags(): string[] {
   return Array.from(tags);
 }
 
+// 页面标题已由 frontmatter 的 title 渲染；正文开头若又写了一个 H1，
+// 渲染前剥离，避免同一页出现两个重复的大标题。仅处理首个非空行，正文中段的 H1 不动。
+function stripLeadingH1(content: string): string {
+  const lines = content.split("\n");
+  const firstIdx = lines.findIndex((line) => line.trim() !== "");
+  if (firstIdx === -1) return content;
+  if (!/^#\s+\S/.test(lines[firstIdx].trim())) return content;
+  return lines
+    .slice(firstIdx + 1)
+    .join("\n")
+    .replace(/^\s*\n+/, "");
+}
+
 export async function getPostData(slug: string): Promise<PostData | null> {
   // slug 来自路由参数：白名单校验防路径穿越，文件不存在时返回 null（由页面转 404）
   if (!/^[A-Za-z0-9_\-\u4e00-\u9fff]+$/.test(slug)) {
@@ -129,7 +142,7 @@ export async function getPostData(slug: string): Promise<PostData | null> {
 
   return {
     slug,
-    content: matterResult.content,
+    content: stripLeadingH1(matterResult.content),
     readingTime,
     tags: matterResult.data.tags || [],
     ...(matterResult.data as { title: string; date: string; excerpt: string }),

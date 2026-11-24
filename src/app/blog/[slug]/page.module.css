@@ -26,7 +26,7 @@
 }
 
 .backLink:hover {
-  color: var(--accent-1);
+  color: var(--accent-text);
   gap: 0.75rem;
 }
 
@@ -42,7 +42,7 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent-1);
+  color: var(--accent-text);
   margin-bottom: 1.25rem;
 }
 
@@ -57,7 +57,8 @@
 }
 
 .postExcerpt {
-  font-size: 1.15rem;
+  /* 正文放大到 1.1rem 后，1.15rem 的导语与正文几乎同号，层级丢失，故抬到 1.2rem */
+  font-size: 1.2rem;
   color: var(--text-secondary);
   max-width: 560px;
   margin: 0 auto;
@@ -74,9 +75,13 @@
 
 /* Post Content */
 .postContent {
-  font-size: 1.05rem;
-  line-height: 1.85;
+  font-size: 1.1rem;
+  line-height: 1.9;
   color: var(--text-primary);
+  /* 中文避头尾：禁止标点落在行首 */
+  line-break: strict;
+  /* 长 URL 与连续英文不再撑破容器 */
+  overflow-wrap: break-word;
 }
 
 .postContent h1,
@@ -84,30 +89,45 @@
 .postContent h3,
 .postContent h4 {
   font-weight: 700;
-  letter-spacing: -0.02em;
+  /* 负字距是为拉丁字母收紧设计的，汉字等宽，收紧只会拥挤 */
+  letter-spacing: normal;
+  /* 标题若继承正文 1.9 的行高，两行标题会散开 */
+  line-height: 1.35;
   color: var(--text-primary);
   margin-top: 2.5rem;
   margin-bottom: 1rem;
-  scroll-margin-top: 84px; /* 锚点跳转时避开 sticky header */
+  text-wrap: balance;
+  scroll-margin-top: calc(var(--header-h) + 20px); /* 锚点跳转时避开 sticky header */
 }
 
 .postContent h2 {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
+  margin-top: 3.5rem;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 0.5rem;
 }
 
 .postContent h3 {
-  font-size: 1.3rem;
+  font-size: 1.28rem;
+  margin-top: 2.6rem;
+}
+
+.postContent h4 {
+  font-size: 1.15rem;
+  margin-top: 2rem;
 }
 
 .postContent p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
   color: var(--text-secondary);
+  /* 避免段落末行只剩一两个字 */
+  text-wrap: pretty;
+  /* 行首全角标点的多余空白（Chromium 生效，其余浏览器忽略） */
+  text-spacing-trim: trim-start;
 }
 
 .postContent a {
-  color: var(--accent-1);
+  color: var(--accent-text);
   text-decoration: underline;
   text-decoration-color: rgba(99, 102, 241, 0.4);
   text-underline-offset: 3px;
@@ -127,6 +147,7 @@
 .postContent li {
   margin-bottom: 0.5rem;
   color: var(--text-secondary);
+  text-spacing-trim: trim-start;
 }
 
 .postContent blockquote {
@@ -135,20 +156,27 @@
   margin: 1.5rem 0;
   background: rgba(99, 102, 241, 0.05);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  font-style: italic;
+  /* 中文无真斜体，浏览器伪斜体观感劣化；引用语义交给竖线与底色 */
+  font-style: normal;
   color: var(--text-secondary);
 }
 
+/* 引用块末段不再叠加上边距，否则底部多出半块空白 */
+.postContent blockquote > :last-child {
+  margin-bottom: 0;
+}
+
 .postContent pre {
-  background: #0d1117 !important; /* Force dark background for code blocks */
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  /* 高亮主题固定为 github-dark，底色必须跟随，故用令牌锁定深色 */
+  background: var(--code-bg) !important;
+  border: 1px solid var(--code-border) !important;
   border-radius: var(--radius-md);
   padding: 1.5rem;
   overflow-x: auto;
   margin: 1.5rem 0;
   font-size: 0.875rem;
   line-height: 1.7;
-  color: #c9d1d9 !important;
+  color: var(--code-fg) !important;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
@@ -158,23 +186,165 @@
 
 .postContent :not(pre) > code {
   background: var(--bg-secondary);
-  color: var(--accent-1);
+  color: var(--accent-text);
   padding: 0.2em 0.45em;
   border-radius: 4px;
   font-size: 0.875em;
   border: 1px solid var(--border-color);
 }
 
+/* ============================================
+   正文扩展元素：表格 / 图片 / 题注 / 分隔线 / 任务列表
+   全部复用现有令牌，不引入新的硬编码色值
+   ============================================ */
+
+/* 表格：外层滚动容器，窄屏横滑时只滚表格不滚页面 */
+.tableScroll {
+  margin: 2rem 0;
+  overflow-x: auto;
+  /* 表格内部横滑到边界时不再把滚动链传给页面，避免移动端误触发整页位移 */
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-card-solid);
+  -webkit-overflow-scrolling: touch;
+}
+
+.tableScroll table {
+  width: 100%;
+  min-width: 460px;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.postContent thead th {
+  padding: 0.75rem 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  white-space: nowrap;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.postContent tbody td {
+  padding: 0.7rem 1rem;
+  color: var(--text-secondary);
+  vertical-align: top;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.postContent tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.postContent tbody tr:nth-child(even) {
+  background: rgba(99, 102, 241, 0.03);
+}
+
+.postContent tbody tr:hover {
+  background: rgba(99, 102, 241, 0.06);
+}
+
+/* GFM 列对齐在此工具链中输出为内联 style（hast-to-jsx 转换），
+   优先级高于本文件的 text-align，故无需额外补齐 */
+
+/* 图片：宽度受容器约束，圆角与边框对齐玻璃卡片语言 */
+.postContent figure {
+  margin: 2rem 0;
+}
+
+.postContent img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.postContent figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  text-align: center;
+  /* 题注一般不超过三四行，均分断行比留一个两字尾行好看 */
+  text-wrap: balance;
+}
+
+/* 分隔线：与文章头部 headerDivider 同一语言，中段实色、两端渐隐 */
+.postContent hr {
+  height: 1px;
+  max-width: 220px;
+  margin: 3rem auto;
+  border: none;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border-color) 20%,
+    var(--border-color) 80%,
+    transparent
+  );
+}
+
+/* 任务列表：mdast-util-gfm-task-list-item 注入 task-list-item / contains-task-list */
+.postContent :global(.contains-task-list),
+.postContent :global(.task-list-item),
+.postContent li:has(> input[type='checkbox']) {
+  list-style: none;
+}
+
+.postContent :global(.contains-task-list) {
+  padding-left: 0;
+}
+
+.postContent :global(.task-list-item) input[type='checkbox'] {
+  margin-right: 0.6rem;
+  accent-color: var(--accent-1);
+  cursor: pointer;
+}
+
+/* 嵌套列表收紧，避免子项与父项脱节 */
+.postContent li > ul,
+.postContent li > ol {
+  margin-top: 0.4rem;
+  margin-bottom: 0;
+}
+
+/* 外链：提示读者会离开站点 */
+.postContent .externalLink::after {
+  content: '↗';
+  margin-left: 0.15em;
+  font-size: 0.78em;
+  opacity: 0.55;
+}
+
 /* === RESPONSIVE === */
 @media (max-width: 600px) {
   .postContainer {
     padding: 3rem 1.25rem 5rem;
-  }
-  .postHeader {
+  }  .postHeader {
     text-align: left;
+  }
+  /* 标题已左对齐，meta 与标签同步靠左，避免三者不在一条竖线上 */
+  .metaRow,
+  .tagsContainer {
+    justify-content: flex-start;
   }
   .postExcerpt {
     text-align: left;
+  }
+  /* 窄屏列宽收紧后中文会被拆成单字换行，抬高表格最小宽度并压缩内边距换取列宽 */
+  .tableScroll table {
+    min-width: 520px;
+    font-size: 0.88rem;
+  }
+  .postContent thead th,
+  .postContent tbody td {
+    padding: 0.6rem 0.75rem;
   }
 }
 
@@ -187,8 +357,9 @@
   .tocSidebar {
     display: block;
     position: fixed;
-    top: 96px;
-    right: calc((100vw - var(--max-prose)) / 2 - 250px);
+    top: calc(var(--header-h) + 2rem);
+    /* 以视口中心为基准定位，避开 100vw 把滚动条算进去的误差 */
+    left: calc(50% + var(--max-prose) / 2 + 2rem);
     width: 220px;
   }
 }
@@ -224,7 +395,7 @@
 }
 
 .mobileTocList a:hover {
-  color: var(--accent-1);
+  color: var(--accent-text);
 }
 
 @media (max-width: 1279px) {
@@ -264,7 +435,7 @@
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
   background: var(--bg-secondary);
-  color: var(--accent-1);
+  color: var(--accent-text);
   border: 1px solid var(--border-color);
 }
 
@@ -318,7 +489,7 @@
 }
 
 .navLink:hover .navTitle {
-  color: var(--accent-1);
+  color: var(--accent-text);
 }
 
 /* === RELATED POSTS === */
@@ -360,7 +531,7 @@
 .relatedItemDate {
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--accent-1);
+  color: var(--accent-text);
   flex-shrink: 0;
 }
 
@@ -378,6 +549,6 @@
 }
 
 .relatedItem:hover .relatedItemArrow {
-  color: var(--accent-1);
+  color: var(--accent-text);
   transform: translateX(3px);
 }

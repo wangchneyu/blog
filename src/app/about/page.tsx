@@ -1,190 +1,231 @@
 import Link from "next/link";
 import styles from "./page.module.css";
 import { Metadata } from "next";
+import { projects } from "@/lib/projects";
+import { getSortedPostsData } from "@/lib/markdown";
+import { site } from "@/lib/site";
+import { PrintButton } from "@/components/PrintButton";
 
 export const metadata: Metadata = {
   title: "关于我",
-  description: "wangc 的求学经历、科研经历、项目经历与开源贡献。",
+  description: `${site.name} 的个人档案：AI Agent 工程实践、IMVC 多视图聚类研究与代表项目。`,
 };
 
+const MILESTONES = [
+  {
+    badge: "ICLR 2027",
+    title: "不完备多视图聚类（IMVC）研究 · 论文在审",
+    detail: "CCF-A 类国际会议，基于 PyTorch 探索缺失视图下的表征补全与聚类一致性。",
+    active: true,
+  },
+  {
+    badge: "IEEE VCIP",
+    title: "IEEE VCIP 会议审稿人",
+    detail: "参与视觉通信与图像处理方向投稿论文的同行评审工作。",
+  },
+  {
+    badge: "2026.05",
+    title: "GitHub First Issue 开源贡献",
+    detail: "为 Hmbown/CodeWhale 提交系统复制与 GUI 退出快捷键的热键冲突缺陷报告。",
+  },
+  {
+    badge: "AI 竞赛",
+    title: "TRAE AI 创造力大赛 · 初赛优秀奖",
+    detail: "独立开发面向孤独老人的长程记忆情感陪伴智能体「忆伴」。",
+  },
+] as const;
+
 export default function About() {
+  // 代表项目：精选展示核心代表作（Lemma / 安养通 / 实习支教申报管理平台），全量见 /projects
+  const featuredProjects = projects.filter(
+    (project) => project.group !== "contest" && project.featured
+  );
+  const latestPost = getSortedPostsData()[0] ?? null;
+
   return (
     <div className={styles.aboutContainer}>
-      <Link href="/" className={styles.backLink}>
-        ← 返回首页
-      </Link>
+      <div className={styles.topBar}>
+        <Link href="/" className={styles.backLink}>
+          ← 返回首页
+        </Link>
+      </div>
 
-      <header className={styles.pageHeader}>
-        <h1 className={styles.title}>关于我</h1>
-        <p className={styles.intro}>
-          从校园到实验室，从代码到论文——这里记录着我一步步走过的每一段路。
-        </p>
-      </header>
+      <div className={styles.profileLayout}>
+        {/* 左侧无框编辑风身份栏 */}
+        <aside className={styles.sidebar}>
+          <div className={styles.identityBlock}>
+            <span className={styles.statusPill}>
+              <span className={styles.statusPulse} aria-hidden="true" />
+              ICLR 2027 在审 · 欢迎交流
+            </span>
 
-      {/* 求学经历 */}
-      <section className={styles.section}>
-        <div className={styles.sectionHeadingWrapper}>
-          <span className="section-heading">求学经历 / EDUCATION</span>
+            <h1 className={styles.name}>
+              {site.name}
+              <span className={`${styles.nameDot} gradient-text`} aria-hidden="true">
+                .
+              </span>
+            </h1>
+
+            <p className={styles.affiliation}>
+              {site.affiliation} · {site.degree}
+            </p>
+            <p className={styles.period}>{site.period}</p>
+
+            <div className={styles.stackBlock} aria-label="技术栈">
+              <span className={styles.metaLabel}>技术栈</span>
+              <ul className={styles.stackList}>
+                {site.stack.map((item) => (
+                  <li key={item} className={styles.stackItem}>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className={styles.actionGroup}>
+              <a href={`mailto:${site.email}`} className={styles.primaryAction}>
+                ✉ 联系我
+              </a>
+              <div className={styles.secondaryActions}>
+                <a
+                  href={site.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.secondaryAction}
+                >
+                  GitHub ↗
+                </a>
+                <PrintButton />
+              </div>
+              <p className={styles.emailHint}>{site.email}</p>
+            </div>
+          </div>
+        </aside>
+
+        {/* 右侧主叙事区 */}
+        <div className={styles.mainColumn}>
+          <section className={styles.introSection}>
+            <p className={styles.leadStatement}>
+              我是一名{" "}
+              <span className="gradient-text">AI Agent 工作者</span>
+              ，主力用 <strong>Python</strong> 与 <strong>Java</strong>{" "}
+              把多智能体协作做成真实交付的产品；科研上基于{" "}
+              <strong>PyTorch</strong> 研究{" "}
+              <span className="gradient-text">不完备多视图聚类（IMVC）</span>。
+            </p>
+            <p className={styles.leadSub}>
+              工程上关注任务持久化、可控工作流与复杂系统的从 0 到 1 交付——涵盖本地多智能体工具 Lemma、面向长者的智慧养老平台「安养通」，以及实际服务数百名师生的实习支教管理平台；科研上关注视图缺失下的数据表征恢复与聚类一致性，并担任 IEEE VCIP 会议审稿人。
+            </p>
+          </section>
+
+          <section className={styles.section}>
+            <div className={styles.sectionHead}>
+              <h2 className={styles.sectionTitle}>代表项目</h2>
+              <Link href="/projects" className={styles.sectionMore}>
+                全部 {projects.length} 个项目 →
+              </Link>
+            </div>
+
+            <div className={styles.projectList}>
+              {featuredProjects.map((project, index) => {
+                const isOngoing = project.group === "ongoing";
+                const num = String(index + 1).padStart(2, "0");
+                const inner = (
+                  <>
+                    <span className={styles.projectIndex} aria-hidden="true">
+                      {num}
+                    </span>
+                    <div className={styles.projectBody}>
+                      <div className={styles.projectTop}>
+                        <h3 className={styles.projectTitle}>
+                          {project.title}
+                          {project.link && (
+                            <span className={styles.projectExt} aria-hidden="true">
+                              ↗
+                            </span>
+                          )}
+                        </h3>
+                        <span
+                          className={`${styles.projectStatus} ${
+                            isOngoing ? styles.projectStatusOngoing : styles.projectStatusDelivered
+                          }`}
+                        >
+                          {isOngoing && <span className={styles.ongoingDot} aria-hidden="true" />}
+                          {project.status}
+                        </span>
+                      </div>
+                      <p className={styles.projectRole}>{project.role}</p>
+                      <p className={styles.projectDesc}>{project.desc}</p>
+                    </div>
+                  </>
+                );
+
+                return project.link ? (
+                  <a
+                    key={project.title}
+                    href={project.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`${styles.projectRow} ${styles.projectRowClickable}`}
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <article key={project.title} className={styles.projectRow}>
+                    {inner}
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className={styles.section}>
+            <div className={styles.sectionHead}>
+              <h2 className={styles.sectionTitle}>科研、竞赛与写作</h2>
+              <Link href="/blog" className={styles.sectionMore}>
+                技术博客 →
+              </Link>
+            </div>
+            <ul className={styles.timeline}>
+              {MILESTONES.map((item) => (
+                <li key={item.title} className={styles.timelineItem}>
+                  <span
+                    className={`${styles.timelineBadge} ${
+                      "active" in item && item.active ? styles.timelineBadgeActive : ""
+                    }`}
+                  >
+                    {item.badge}
+                  </span>
+                  <div className={styles.timelineTrack} aria-hidden="true">
+                    <span
+                      className={`${styles.timelineDot} ${
+                        "active" in item && item.active ? styles.timelineDotActive : ""
+                      }`}
+                    />
+                  </div>
+                  <div className={styles.timelineBody}>
+                    <h3 className={styles.timelineTitle}>{item.title}</h3>
+                    <p className={styles.timelineDetail}>{item.detail}</p>
+                  </div>
+                </li>
+              ))}
+              {latestPost && (
+                <li className={styles.timelineItem}>
+                  <span className={styles.timelineBadge}>最新文章</span>
+                  <div className={styles.timelineTrack} aria-hidden="true">
+                    <span className={styles.timelineDot} />
+                  </div>
+                  <div className={styles.timelineBody}>
+                    <Link href={`/blog/${latestPost.slug}`} className={styles.timelinePostLink}>
+                      {latestPost.title} →
+                    </Link>
+                    <p className={styles.timelineDetail}>{latestPost.excerpt}</p>
+                  </div>
+                </li>
+              )}
+            </ul>
+          </section>
         </div>
-        <div className={styles.rowList}>
-          <article className={styles.row}>
-            <div className={styles.rowTop}>
-              <h3 className={styles.rowTitle}>河北师范大学</h3>
-              <span className={styles.rowBadge}>2024 — 2028</span>
-            </div>
-            <p className={styles.rowMeta}>软件学院 — 软件工程专业（本科生）</p>
-            <p className={styles.rowDesc}>
-              主修软件工程。在校期间积极投入全栈开发与多智能体协作（AI
-              Agent）的技术探索，并深度参与数学建模等多类学术竞赛。
-            </p>
-          </article>
-        </div>
-      </section>
-
-      {/* 科研经历 */}
-      <section className={styles.section}>
-        <div className={styles.sectionHeadingWrapper}>
-          <span className="section-heading">科研经历 / RESEARCH</span>
-        </div>
-        <div className={styles.rowList}>
-          <article className={styles.row}>
-            <div className={styles.rowTop}>
-              <h3 className={styles.rowTitle}>多视图聚类研究</h3>
-              <span className={styles.rowBadge}>在投</span>
-            </div>
-            <p className={styles.rowMeta}>ICLR 2027 · CCF-A 类国际会议</p>
-            <p className={styles.rowDesc}>
-              深入探索数据挖掘与机器学习领域，目前正致力于多视图聚类方向的算法探索与学术研究，
-              相关成果已投稿至 CCF-A 类国际顶级会议 ICLR 2027，现于投中。
-            </p>
-          </article>
-
-          <article className={styles.row}>
-            <div className={styles.rowTop}>
-              <h3 className={styles.rowTitle}>IEEE VCIP 审稿人</h3>
-              <span className={styles.rowBadge}>Reviewer</span>
-            </div>
-            <p className={styles.rowMeta}>
-              IEEE Visual Communications and Image Processing (VCIP)
-            </p>
-            <p className={styles.rowDesc}>
-              担任 IEEE VCIP 会议审稿人，参与视觉通信与图像处理方向投稿论文的评审工作。
-            </p>
-          </article>
-        </div>
-      </section>
-
-      {/* 项目经历 */}
-      <section className={styles.section}>
-        <div className={styles.sectionHeadingWrapper}>
-          <span className="section-heading">项目经历 / PROJECTS</span>
-        </div>
-        <div className={styles.rowList}>
-          <article className={styles.row}>
-            <div className={styles.rowTop}>
-              <h3 className={styles.rowTitle}>安养通 - 智慧养老</h3>
-              <span className={styles.rowBadge}>正在进行</span>
-            </div>
-            <p className={styles.rowMeta}>PM + Agent 开发工程师</p>
-            <p className={styles.rowDesc}>
-              主导构建「安养通」智慧养老平台的长者端
-              Agent，负责整体产品的需求规划（PM）、Agent 逻辑搭建与系统调试。
-            </p>
-          </article>
-
-          <article className={styles.row}>
-            <div className={styles.rowTop}>
-              <h3 className={styles.rowTitle}>校级田径队数字化AI 多智能体协作管理平台</h3>
-              <span className={styles.rowBadge}>已完成</span>
-            </div>
-            <p className={styles.rowMeta}>全栈独立开发者</p>
-            <p className={styles.rowDesc}>
-              独立负责整个系统的全栈架构与开发，通过 AI
-              多智能体（Multi-Agent）协作模式，优化田径队的日常训练管理与数据分析效率。
-            </p>
-          </article>
-
-          <article className={styles.row}>
-            <div className={styles.rowTop}>
-              <h3 className={styles.rowTitle}>校园迎新助手 · 狮小伴 AI 对话智能体</h3>
-              <span className={styles.rowBadge}>已完成</span>
-            </div>
-            <p className={styles.rowMeta}>主前端 + 运维 · PM + Agent 调试工程师</p>
-            <p className={styles.rowDesc}>
-              承担「校园迎新助手」核心前端开发与运维保障，确保高并发迎新阶段的平台高可用；同时主导平台搭载的
-              AI 对话智能体「狮小伴」（易班 AI
-              辅导员）的需求规划与调试优化，保证交互的准确性与拟人化体验。
-            </p>
-          </article>
-
-          <article className={styles.row}>
-            <div className={styles.rowTop}>
-              <h3 className={styles.rowTitle}>实习支教申报管理平台（DGZJ）</h3>
-              <span className={styles.rowBadge}>已完成</span>
-            </div>
-            <p className={styles.rowMeta}>全栈开发</p>
-            <p className={styles.rowDesc}>
-              独立完成实习支教申报管理平台的前后端全栈开发工作，实现了管理系统从 0 到 1
-              的构建与交付。
-            </p>
-          </article>
-        </div>
-      </section>
-
-      {/* 开源与竞赛 */}
-      <section className={styles.section}>
-        <div className={styles.sectionHeadingWrapper}>
-          <span className="section-heading">开源与竞赛 / OPEN SOURCE &amp; COMPETITIONS</span>
-        </div>
-        <div className={styles.rowList}>
-          <article className={styles.row}>
-            <div className={styles.rowTop}>
-              <h3 className={styles.rowTitle}>TRAE AI 创造力大赛</h3>
-              <span className={styles.rowBadge}>已完成 · 优秀奖</span>
-            </div>
-            <p className={styles.rowMeta}>独立参赛者</p>
-            <p className={styles.rowDesc}>
-              独立开发了「忆伴——面向孤独老人的长程记忆情感陪伴智能体」参赛项目，荣获初赛优秀奖，致力于利用多智能体技术提供情感关怀。
-            </p>
-          </article>
-
-          <article className={styles.row}>
-            <div className={styles.rowTop}>
-              <h3 className={styles.rowTitle}>「高教杯」数学建模大赛 / 大学生数学竞赛</h3>
-              <span className={styles.rowBadge}>2024 — Present</span>
-            </div>
-            <p className={styles.rowMeta}>数学建模手</p>
-            <p className={styles.rowDesc}>
-              作为核心建模手荣获「高教杯」数学建模大赛（校赛）三等奖，并正积极备战省赛与全国大学生数学竞赛。
-            </p>
-          </article>
-
-          <article className={styles.row}>
-            <div className={styles.rowTop}>
-              <h3 className={styles.rowTitle}>GitHub 开源贡献</h3>
-              <span className={styles.rowBadge}>2026 年 5 月</span>
-            </div>
-            <p className={styles.rowMeta}>开源贡献者</p>
-            <p className={styles.rowDesc}>
-              成功解锁 GitHub 「First Issue」里程碑。针对开源项目 Hmbown/CodeWhale
-              运行中系统复制与 GUI 退出快捷键的热冲突问题，提交了精准的缺陷报告。
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <div className={styles.contactLine}>
-        <a href="mailto:wangchenyu@stu.hebtu.edu.cn" className={styles.contactLink}>
-          ✉ 邮箱
-        </a>
-        <a
-          href="https://github.com/wangchneyu"
-          target="_blank"
-          rel="noreferrer"
-          className={styles.contactLink}
-        >
-          GitHub ↗
-        </a>
       </div>
     </div>
   );
