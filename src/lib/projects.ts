@@ -33,15 +33,6 @@ export const projects: Project[] = [
     group: "done"
   },
   {
-    title: "校级田径队数字化 AI 多智能体协作管理平台",
-    role: "全栈独立开发者",
-    status: "已完成",
-    desc: "独立负责整个系统的全栈架构与开发，通过 AI 多智能体（Multi-Agent）协作模式，优化田径队的日常训练管理与数据分析效率。",
-    tags: ["AI Agent", "Full-Stack", "SportsTech"],
-    icon: "🏃",
-    group: "done"
-  },
-  {
     title: "实习支教申报管理平台",
     role: "全栈开发",
     status: "已交付使用",
@@ -58,6 +49,15 @@ export const projects: Project[] = [
     desc: "承担「校园迎新助手」核心前端开发与运维保障，确保高并发迎新阶段的平台高可用；同时主导平台搭载的 AI 对话智能体「狮小伴」（易班 AI 辅导员）的需求规划与调试优化，保证交互的准确性与拟人化体验。",
     tags: ["AI Agent", "Frontend", "DevOps", "Education"],
     icon: "👋",
+    group: "done"
+  },
+  {
+    title: "校级田径队数字化 AI 多智能体协作管理平台",
+    role: "全栈独立开发者",
+    status: "已完成",
+    desc: "独立负责整个系统的全栈架构与开发，通过 AI 多智能体（Multi-Agent）协作模式，优化田径队的日常训练管理与数据分析效率。",
+    tags: ["AI Agent", "Full-Stack", "SportsTech"],
+    icon: "🏃",
     group: "done"
   },
   {

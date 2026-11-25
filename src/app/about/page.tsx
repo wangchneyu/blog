@@ -2,9 +2,7 @@ import Link from "next/link";
 import styles from "./page.module.css";
 import { Metadata } from "next";
 import { projects } from "@/lib/projects";
-import { getSortedPostsData } from "@/lib/markdown";
 import { site } from "@/lib/site";
-import { PrintButton } from "@/components/PrintButton";
 
 export const metadata: Metadata = {
   title: "关于我",
@@ -13,13 +11,13 @@ export const metadata: Metadata = {
 
 const MILESTONES = [
   {
-    badge: "ICLR 2027",
-    title: "不完备多视图聚类（IMVC）研究 · 论文在审",
-    detail: "CCF-A 类国际会议，基于 PyTorch 探索缺失视图下的表征补全与聚类一致性。",
+    badge: "进行中",
+    title: "ICLR 2027 · 不完备多视图聚类（IMVC）论文在审",
+    detail: "CCF-A 类国际会议，围绕缺失视图下的表征补全与聚类一致性开展研究。",
     active: true,
   },
   {
-    badge: "IEEE VCIP",
+    badge: "2026",
     title: "IEEE VCIP 会议审稿人",
     detail: "参与视觉通信与图像处理方向投稿论文的同行评审工作。",
   },
@@ -29,9 +27,14 @@ const MILESTONES = [
     detail: "为 Hmbown/CodeWhale 提交系统复制与 GUI 退出快捷键的热键冲突缺陷报告。",
   },
   {
-    badge: "AI 竞赛",
+    badge: "2025",
     title: "TRAE AI 创造力大赛 · 初赛优秀奖",
     detail: "独立开发面向孤独老人的长程记忆情感陪伴智能体「忆伴」。",
+  },
+  {
+    badge: "2024–2028",
+    title: `${site.affiliation} · ${site.degree}`,
+    detail: "软件学院本科在读，专注 AI Agent 工程实践与多视图聚类研究。",
   },
 ] as const;
 
@@ -40,7 +43,6 @@ export default function About() {
   const featuredProjects = projects.filter(
     (project) => project.group !== "contest" && project.featured
   );
-  const latestPost = getSortedPostsData()[0] ?? null;
 
   return (
     <div className={styles.aboutContainer}>
@@ -54,11 +56,6 @@ export default function About() {
         {/* 左侧无框编辑风身份栏 */}
         <aside className={styles.sidebar}>
           <div className={styles.identityBlock}>
-            <span className={styles.statusPill}>
-              <span className={styles.statusPulse} aria-hidden="true" />
-              ICLR 2027 在审 · 欢迎交流
-            </span>
-
             <h1 className={styles.name}>
               {site.name}
               <span className={`${styles.nameDot} gradient-text`} aria-hidden="true">
@@ -95,9 +92,7 @@ export default function About() {
                 >
                   GitHub ↗
                 </a>
-                <PrintButton />
               </div>
-              <p className={styles.emailHint}>{site.email}</p>
             </div>
           </div>
         </aside>
@@ -108,13 +103,11 @@ export default function About() {
             <p className={styles.leadStatement}>
               我是一名{" "}
               <span className="gradient-text">AI Agent 工作者</span>
-              ，主力用 <strong>Python</strong> 与 <strong>Java</strong>{" "}
-              把多智能体协作做成真实交付的产品；科研上基于{" "}
-              <strong>PyTorch</strong> 研究{" "}
+              ，把多智能体协作做成真实交付的产品；科研上研究{" "}
               <span className="gradient-text">不完备多视图聚类（IMVC）</span>。
             </p>
             <p className={styles.leadSub}>
-              工程上关注任务持久化、可控工作流与复杂系统的从 0 到 1 交付——涵盖本地多智能体工具 Lemma、面向长者的智慧养老平台「安养通」，以及实际服务数百名师生的实习支教管理平台；科研上关注视图缺失下的数据表征恢复与聚类一致性，并担任 IEEE VCIP 会议审稿人。
+              工程上关注任务持久化、可控工作流与复杂系统的从 0 到 1 交付；科研上关注视图缺失下的数据表征恢复与聚类一致性，并持续参与国际会议论文同行评审。
             </p>
           </section>
 
@@ -181,10 +174,7 @@ export default function About() {
 
           <section className={styles.section}>
             <div className={styles.sectionHead}>
-              <h2 className={styles.sectionTitle}>科研、竞赛与写作</h2>
-              <Link href="/blog" className={styles.sectionMore}>
-                技术博客 →
-              </Link>
+              <h2 className={styles.sectionTitle}>时间线</h2>
             </div>
             <ul className={styles.timeline}>
               {MILESTONES.map((item) => (
@@ -209,20 +199,6 @@ export default function About() {
                   </div>
                 </li>
               ))}
-              {latestPost && (
-                <li className={styles.timelineItem}>
-                  <span className={styles.timelineBadge}>最新文章</span>
-                  <div className={styles.timelineTrack} aria-hidden="true">
-                    <span className={styles.timelineDot} />
-                  </div>
-                  <div className={styles.timelineBody}>
-                    <Link href={`/blog/${latestPost.slug}`} className={styles.timelinePostLink}>
-                      {latestPost.title} →
-                    </Link>
-                    <p className={styles.timelineDetail}>{latestPost.excerpt}</p>
-                  </div>
-                </li>
-              )}
             </ul>
           </section>
         </div>
