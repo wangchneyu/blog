@@ -8,14 +8,9 @@ import styles from "./page.module.css";
  */
 export default function Home() {
   return (
-    <div className={styles.page}>
+    <div className={styles.page} data-home-page="">
       <section className={styles.heroSection}>
         <div className={styles.heroContent}>
-          <p className={styles.heroEyebrow}>
-            {site.affiliation} · {site.degree} ·{" "}
-            <span className={styles.keepTogether}>{site.period}</span>
-          </p>
-
           <h1 className={styles.heroTitle}>
             我是 {site.name}，一名{" "}
             <span className={`${styles.keepTogether} gradient-text`}>AI Agent</span> 工作者，

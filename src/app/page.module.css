@@ -4,14 +4,15 @@
 
 .page {
   position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ===== 首屏 HERO ===== */
 .heroSection {
   position: relative;
-  min-height: calc(100vh - var(--header-h));
-  /* 移动端地址栏会伸缩，dvh 才是「看得见的那一屏」；不支持的浏览器沿用上面一行 */
-  min-height: calc(100dvh - var(--header-h));
+  flex: 1;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -22,7 +23,7 @@
   z-index: 2;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,16 +31,7 @@
   animation: fadeInUp 0.7s ease-out both;
 }
 
-/* 身份行：学校 · 专业 · 在读区间，放在标题之前做「名片抬头」 */
-.heroEyebrow {
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-}
-
 .heroTitle {
-  margin-top: 1.1rem;
   font-size: clamp(2.1rem, 4.6vw, 3.7rem);
   font-weight: 800;
   line-height: 1.3;
@@ -57,7 +49,6 @@
 
 @media (max-width: 640px) {
   .heroTitle {
-    margin-top: 0.9rem;
     font-size: clamp(1.6rem, 7.6vw, 2.1rem);
     line-height: 1.4;
   }

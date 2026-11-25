@@ -118,6 +118,7 @@ body {
   font-size: 1rem;
   line-height: 1.7;
   min-height: 100vh;
+  min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -127,6 +128,12 @@ body {
 /* 内容不足一屏时，由 main 撑开剩余空间，把 footer 压在视口底部 */
 main {
   flex: 1 0 auto;
+}
+
+/* 首页内部需要撑满 Header 与 Footer 之间的剩余视口高度，保持一整屏不滑动 */
+main:has(> [data-home-page]) {
+  display: flex;
+  flex-direction: column;
 }
 
 a {
