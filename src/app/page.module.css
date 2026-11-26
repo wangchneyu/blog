@@ -186,3 +186,24 @@
     animation: none;
   }
 }
+
+/* ===== 标题渐变流光：关键词的渐变缓慢来回流动 ===== */
+.heroTitle :global(.gradient-text) {
+  background-size: 220% 100%;
+  animation: titleShimmer 6s ease-in-out infinite alternate;
+}
+
+@keyframes titleShimmer {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroTitle :global(.gradient-text) {
+    animation: none;
+  }
+}

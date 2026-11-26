@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
+import HeroCanvas from "@/components/HeroCanvas";
 import styles from "./page.module.css";
 
 /**
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <div className={styles.page} data-home-page="">
       <section className={styles.heroSection}>
+        <HeroCanvas />
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
             我是 {site.name}，一名{" "}

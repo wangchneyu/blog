@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // 隐藏开发环境左下角 DevTools 悬浮标（生产环境本身不会显示；编译与运行时报错仍正常提示）
+  devIndicators: false,
+
   // 安全响应头
   async headers() {
     return [

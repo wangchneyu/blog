@@ -1,0 +1,11 @@
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  /* 画布边缘渐隐，避免粒子在视口边缘生硬截断 */
+  -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, #000 45%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, #000 45%, transparent 100%);
+}
